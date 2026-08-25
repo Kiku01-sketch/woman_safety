@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { PRIMARY_SLOTS, useContacts } from "../contacts";
 import { STATS, type Stat } from "../data";
 import { useCountUp, useReveal, useScrambleCycle } from "../hooks";
 import { ButtonLink, IconAlert, IconPhone, IconPin, IconSiren, IconUsers, Reveal } from "../ui";
@@ -14,6 +15,7 @@ function SOSBeacon() {
   const [phase, setPhase] = useState<"idle" | "sent">("idle");
   const raf = useRef(0);
   const startAt = useRef(0);
+  const guardians = useContacts().slice(0, PRIMARY_SLOTS);
 
   const stop = useCallback(() => {
     cancelAnimationFrame(raf.current);
@@ -93,12 +95,37 @@ function SOSBeacon() {
         <div className="relative z-10 flex h-64 w-64 flex-col items-center justify-center rounded-full border-2 border-tide/70 bg-plum px-8 text-center shadow-[0_0_70px_-10px_rgba(47,185,164,0.5)] sm:h-72 sm:w-72">
           <span className="blink-dot absolute top-6 h-3 w-3 rounded-full bg-tide" aria-hidden="true" />
           <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-tide">Alert active</p>
-          <p className="font-display mt-2 text-2xl font-black leading-tight text-petal">
-            Guardians notified with your location
-          </p>
-          <p className="mt-2 text-xs leading-relaxed text-shell/60">
-            Demo simulation — wire to your SMS / live-tracking API in production.
-          </p>
+          {guardians.length > 0 ? (
+            <>
+              <p className="font-display mt-2 text-xl font-black leading-tight text-petal">Alert sent to</p>
+              <ul className="mt-2 space-y-1.5">
+                {guardians.map((g) => (
+                  <li key={g.id} className="flex items-center justify-center gap-2 text-sm font-bold text-petal/90">
+                    <span className="blink-dot h-1.5 w-1.5 shrink-0 rounded-full bg-tide" aria-hidden="true" />
+                    <span className="truncate">{g.name}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 text-[11px] leading-relaxed text-shell/55">
+                Live location shared · demo — wire to SMS / tracking API in production.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="font-display mt-2 text-2xl font-black leading-tight text-petal">
+                Guardians notified with your location
+              </p>
+              <a
+                href="#circle"
+                className="mt-2 text-[11px] font-bold uppercase tracking-[0.16em] text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:text-petal"
+              >
+                Circle is empty — add your people
+              </a>
+              <p className="mt-2 text-[11px] leading-relaxed text-shell/55">
+                Demo simulation — wire to your SMS / live-tracking API in production.
+              </p>
+            </>
+          )}
           <div className="mt-4 flex flex-col gap-2">
             <a
               href="tel:911"
@@ -124,6 +151,7 @@ function SOSBeacon() {
 /* ------------------------------------------------------------------ */
 export function Hero() {
   const word = useScrambleCycle(WORDS);
+  const circle = useContacts().slice(0, PRIMARY_SLOTS);
 
   return (
     <section id="sos" className="relative overflow-hidden">
@@ -186,7 +214,14 @@ export function Hero() {
             <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
               <IconPin className="h-4 w-4" /> Live location shared
             </p>
-            <p className="mt-1 text-xs text-shell/70">with 3 trusted contacts</p>
+            <a
+              href="#circle"
+              className="mt-1 block text-xs text-shell/70 underline decoration-wine/70 underline-offset-4 transition-colors hover:text-gold"
+            >
+              {circle.length > 0
+                ? `with ${circle.length} saved guardian${circle.length > 1 ? "s" : ""}`
+                : "your circle is empty — add one"}
+            </a>
           </div>
           <div className="floaty absolute -right-2 bottom-8 hidden rounded-2xl border border-wine/70 bg-plum/90 px-4 py-3 shadow-xl sm:block" style={{ ["--tilt" as never]: "2.5deg", animationDelay: "1.4s" }}>
             <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-tide">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { EmergencyRibbon, Footer, Header, quickExit } from "./components/Chrome";
+import { GuardianSection } from "./components/Contacts";
 import { FinalBand, HelplineDirectory, Stories } from "./components/Directory";
 import { HelpNowStrip, Hero } from "./components/Hero";
 import { DigitalSafety, FiveDs, RightsSection, SelfDefense } from "./components/Knowledge";
@@ -62,6 +63,7 @@ export default function App() {
       <main>
         <Hero />
         <HelpNowStrip />
+        <GuardianSection />
         <SafetyPlanBuilder />
         <RedFlagChecker />
         <RightsSection />

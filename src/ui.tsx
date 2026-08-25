@@ -281,6 +281,27 @@ export const IconUsers = ({ className = "h-6 w-6" }: IconProps) => (
   </svg>
 );
 
+export const IconPlus = ({ className = "h-6 w-6" }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+    <path d="M12 5v14M5 12h14" {...S} strokeWidth={2.2} />
+  </svg>
+);
+
+export const IconPencil = ({ className = "h-6 w-6" }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+    <path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18l-4.2 1.2L5.5 15 17 3.5z" {...S} />
+    <path d="m14.5 6 3 3" {...S} />
+  </svg>
+);
+
+export const IconTrash = ({ className = "h-6 w-6" }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+    <path d="M4 6.5h16M9.5 6.5V4.8c0-.7.6-1.3 1.3-1.3h2.4c.7 0 1.3.6 1.3 1.3v1.7" {...S} />
+    <path d="M6.3 6.5 7 19.2c0 .7.6 1.3 1.3 1.3h7.4c.7 0 1.3-.6 1.3-1.3l.7-12.7" {...S} />
+    <path d="M10 10.5v6M14 10.5v6" {...S} />
+  </svg>
+);
+
 export const MOVE_ICONS: Record<string, (p: IconProps) => ReactNode> = {
   voice: (p) => <IconMegaphone {...p} />,
   palm: (p) => <IconPalm {...p} />,

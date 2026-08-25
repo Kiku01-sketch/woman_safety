@@ -473,6 +473,7 @@ export const STATS: Stat[] = [
 
 export const NAV_LINKS = [
   { href: "#sos", label: "SOS" },
+  { href: "#circle", label: "My Circle" },
   { href: "#safety-plan", label: "Safety Plan" },
   { href: "#red-flags", label: "Red Flags" },
   { href: "#rights", label: "Your Rights" },

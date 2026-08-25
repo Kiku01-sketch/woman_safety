@@ -185,7 +185,7 @@ export function Stories() {
             <Reveal key={s.name} delay={i * 110} className={i % 2 === 1 ? "lg:translate-y-10" : ""}>
               <figure
                 className="postcard relative rounded-2xl border border-wine/15 bg-white p-8 shadow-[0_18px_44px_-24px_rgba(46,23,51,0.35)] sm:p-10"
-                style={{ transform: `rotate(${s.tilt})` }}
+                style={{ ["--tilt" as never]: s.tilt }}
               >
                 <span className="absolute -top-3 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-gold/30 backdrop-blur-[1px]" aria-hidden="true" />
                 <span className="font-display text-7xl font-black leading-none text-flare/20" aria-hidden="true">
